@@ -19,12 +19,15 @@
 // Back-end install jsonwebtoken -> sign jwt token, retrive them and work with them
 // token is encrypted base64 encoded text, json payload
 
+// npm i brcyptjs -> to keep password safe
+
 const express = require("express");
 const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
 const User = require("./models/user.model");
 const jwt = require("jsonwebtoken");
+const brcypt = require("bcryptjs");
 
 app.use(cors());
 app.use(express.json()); // middleware?
@@ -34,7 +37,7 @@ mongoose.connect("mongodb://localhost:27017/mern-stack");
 app.post("/api/register", async (req, res) => {
   console.log(req.body);
   try {
-    const user = await User.create({
+    await User.create({
       name: req.body.name,
       email: req.body.email,
       password: req.body.password,
