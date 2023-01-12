@@ -37,10 +37,11 @@ mongoose.connect("mongodb://localhost:27017/mern-stack");
 app.post("/api/register", async (req, res) => {
   console.log(req.body);
   try {
+    const newPassword = await brcypt.hash(req.body.password, 10);
     await User.create({
       name: req.body.name,
       email: req.body.email,
-      password: req.body.password,
+      password: newPassword,
     });
     res.json({ status: "OK" });
   } catch (err) {
@@ -54,7 +55,19 @@ app.post("/api/login", async (req, res) => {
     password: req.body.password,
   });
 
-  if (user) {
+  if (!user) {
+    return {
+      status: "error",
+      error: "Invalid login",
+    };
+  }
+
+  const isPasswordValid = await brcypt.compare(
+    req.body.password,
+    user.password
+  );
+
+  if (isPasswordValid) {
     const token = jwt.sign(
       {
         name: user.name,
