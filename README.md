@@ -1,9 +1,9 @@
 # MERN
 
 # CLIENT
-'npm i react-router-dom'
+`npm i react-router-dom`
 
-'npm i jsonwebtoken'
+`npm i jsonwebtoken`
 
 # SERVER
 `npm i express` 
@@ -26,9 +26,9 @@ install mongodb
 
 create models folder for mongodb
 
-'npm i jsonwebtoken'
+`npm i jsonwebtoken`
 
-'npm i brcyptjs'
+`npm i brcyptjs`
 
 keep password safe
 
